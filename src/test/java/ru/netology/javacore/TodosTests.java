@@ -28,7 +28,7 @@ public class TodosTests {
 
         List<String> expectedResult = Arrays.asList("A", "B", "C");
 
-        String actual = setTodos().getAllTasks();
+        String actual = setTodos().getAllTasksList();
 
         Assertions.assertEquals(expectedResult.toString(), actual);
     }
@@ -41,7 +41,7 @@ public class TodosTests {
 
         actual.removeTask(task1);
 
-        Assertions.assertEquals(expectedResult.toString(), actual.getAllTasks());
+        Assertions.assertEquals(expectedResult.toString(), actual.getAllTasksList());
     }
 
     @Test
@@ -52,6 +52,6 @@ public class TodosTests {
 
         actual.addTask(task4);
 
-        Assertions.assertEquals(expectedResult.toString(), actual.getAllTasks());
+        Assertions.assertEquals(expectedResult.toString(), actual.getAllTasksList());
     }
 }

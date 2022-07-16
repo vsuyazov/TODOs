@@ -1,5 +1,7 @@
 package ru.netology.javacore;
 
+import com.google.gson.Gson;
+
 import java.util.*;
 
 public class Todos {
@@ -8,6 +10,16 @@ public class Todos {
     private String task;
 
     ArrayList<String> tasks = new ArrayList<>();
+
+    public void setTasks(String json, Todos todos) {
+        Todos t = new Gson().fromJson(json, Todos.class);
+        if ("ADD".equals(t.getType())) {
+            todos.addTask(t.getTask());
+        } else if ("REMOVE".equals(t.getType())) {
+            todos.removeTask(t.getTask());
+        }
+    }
+
 
     public String getType() {
         return type;
@@ -26,13 +38,16 @@ public class Todos {
         tasks.remove(task);
     }
 
-    public String getAllTasks() {
+    public ArrayList<String> getAllTasks() {
+        return tasks;
+    }
+
+    public String getAllTasksList() {
         return tasks.toString();
     }
 
     @Override
     public String toString() {
-        return "type: " + type +
-                " task: " + task;
+        return task;
     }
 }
