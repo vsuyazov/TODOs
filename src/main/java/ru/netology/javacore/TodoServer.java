@@ -6,7 +6,16 @@ import java.net.Socket;
 
 public class TodoServer {
 
+    private final int port;
+    private final Todos todos;
+
     public TodoServer(int port, Todos todos) {
+        this.port = port;
+        this.todos = todos;
+    }
+
+    public void start() throws IOException {
+        System.out.println("Starting server at " + port + "...");
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             while (true) {
                 try (
@@ -14,7 +23,7 @@ public class TodoServer {
                         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                         PrintWriter out = new PrintWriter(socket.getOutputStream(), true)) {
                     final String json = in.readLine();
-                    todos.setTasks(json, todos);
+                    TodoOperations.setTasks(json, todos);
                     for (String t : todos.getAllTasks()
                     ) {
                         out.print(t + " ");
@@ -27,10 +36,5 @@ public class TodoServer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void start() throws IOException {
-        int port = 8989;
-        System.out.println("Starting server at " + port + "...");
     }
 }
